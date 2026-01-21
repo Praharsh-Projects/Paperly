@@ -1,8 +1,6 @@
-# QuestGen-AI
+# Paperly
 
-QuestGen-AI is an advanced exam question generation platform that leverages AI-Agent to automatically create customized question papers from user-uploaded PDF content. Built for educators and assessment creators, QuestGen-AI streamlines the often time-consuming process of creating high-quality assessment materials.
-
-https://github.com/user-attachments/assets/6ea7c368-2001-4062-a866-95c43651b92a
+Paperly is an advanced exam question generation platform that leverages AI-Agent to automatically create customized question papers from user-uploaded PDF content. Built for educators and assessment creators, Paperly streamlines the often time-consuming process of creating high-quality assessment materials.
 
 ## 🚀 Features
 
@@ -18,11 +16,9 @@ https://github.com/user-attachments/assets/6ea7c368-2001-4062-a866-95c43651b92a
 
 ## 🧠 How It Works
 
-![total system](https://github.com/user-attachments/assets/a972a4ec-632e-4c6c-a2e4-fdcfd624fd83)
 
 
-
-QuestGen-AI employs a sophisticated multi-agent system powered by LangChain and large language models:
+Paperly employs a sophisticated multi-agent system powered by LangChain and large language models:
 
 1. **Extractor Agent**: Analyzes your input requirements to understand the exam type, total marks, question types, and subject areas
 
@@ -59,8 +55,8 @@ This multi-step process ensures high-quality, relevant questions that align with
 1. **Clone the repository**
 
    ```bash
-   https://github.com/cRED-f/QuestGen-AI-Agent.git
-   cd QuestGen-AI
+   <REPOSITORY_URL>
+   cd Paperly
    ```
 
 2. **Install dependencies**
@@ -237,7 +233,7 @@ Generates questions based on previously uploaded files.
 
 ## 🔒 Security Considerations
 
-- QuestGen-AI does not store your API keys permanently
+- Paperly does not store your API keys permanently
 - Uploaded PDF files are securely stored in Convex and automatically deleted once question generation is complete
 - No user data is retained between sessions
 - API keys are transmitted securely but should still be protected carefully
