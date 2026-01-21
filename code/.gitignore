@@ -13,6 +13,11 @@
 # testing
 /coverage
 
+# npm lockfile (we use pnpm)
+package-lock.json
+
+**/package-lock.json
+
 # next.js
 /.next/
 /out/
