@@ -278,20 +278,20 @@ export async function GET(req: NextRequest) {
       // Track writer state
       let writerClosed = false;
 
-      // // Helper function to safely close the writer
-      // const safelyCloseWriter = async () => {
-      //   try {
-      //     // Only attempt to close if we haven't already closed it
-      //     if (!writerClosed) {
-      //       writerClosed = true;
-      //       await writer.close();
-      //     }
-      //   } catch (closeError) {
-      //     console.error("Error closing writer:", closeError);
-      //     // We've tried our best to close it, continue with the flow
-      //     writerClosed = true; // Consider it closed even if there was an error
-      //   }
-      // };
+      // Helper function to safely close the writer
+      const safelyCloseWriter = async () => {
+        try {
+          // Only attempt to close if we haven't already closed it
+          if (!writerClosed) {
+            writerClosed = true;
+            await writer.close();
+          }
+        } catch (closeError) {
+          console.error("Error closing writer:", closeError);
+          // We've tried our best to close it, continue with the flow
+          writerClosed = true; // Consider it closed even if there was an error
+        }
+      };
 
       // Helper function to safely write to the stream
       const safelyWriteToStream = async (data: string) => {
@@ -317,8 +317,9 @@ export async function GET(req: NextRequest) {
             // Check if this is an agent type we want to process
             const agentType = Object.keys(event)[0];
 
-            // Only process events from Formatter agent
-            if (agentType !== "Formatter") {
+            // Process Formatter output when available; otherwise fall back to the first
+            // QuestionCreator output to avoid getting stuck in iterative analysis/decider loops.
+            if (agentType !== "Formatter" && agentType !== "QuestionCreator") {
               console.log(`Skipping event from agent: ${agentType}`);
               continue; // Skip this event
             }
@@ -382,14 +383,25 @@ export async function GET(req: NextRequest) {
               const writeSuccess = await safelyWriteToStream(formattedChunk);
               if (!writeSuccess) break;
 
+              if (agentType === "QuestionCreator") {
+                await safelyWriteToStream("event: complete\ndata: done\n\n");
+                await cleanupConvexFiles();
+                await safelyCloseWriter();
+                return;
+              }
+              // If this content is from QuestionCreator, treat it as a valid final output
+              // and terminate streaming early. This prevents infinite graph loops
+              // (GraphRecursionError) from breaking the client experience.
+
+
               // Close the stream after sending error
               await safelyWriteToStream("event: complete\ndata: done\n\n");
 
               // Clean up Convex files before closing writer
               await cleanupConvexFiles();
 
-              // // Safely close the writer
-              // await safelyCloseWriter();
+              // Safely close the writer
+              await safelyCloseWriter();
 
               // Exit the processing loop
               return;
@@ -419,7 +431,7 @@ export async function GET(req: NextRequest) {
           await cleanupConvexFiles();
 
           // Safely close the writer
-          // await safelyCloseWriter();
+          await safelyCloseWriter();
         } catch (error: unknown) {
           console.error("Stream error:", error);
           const errorMessage =
@@ -437,8 +449,8 @@ export async function GET(req: NextRequest) {
           // Clean up Convex files even if we had streaming errors
           await cleanupConvexFiles();
 
-          // // Safely close the writer
-          // await safelyCloseWriter();
+          // Safely close the writer
+          await safelyCloseWriter();
         }
       })();
 

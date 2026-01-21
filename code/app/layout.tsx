@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "QuestGen",
+  title: "Paperly",
   description:
-    "QuestGen is an AI-powered exam question generator that creates customized question papers from user-uploaded PDFs, offering personalized options for question types, marks, and institutional branding.",
+    "Paperly is an AI-powered exam question generator that creates customized question papers from user-uploaded PDFs, offering personalized options for question types, marks, and institutional branding.",
 };
 
 export default function RootLayout({

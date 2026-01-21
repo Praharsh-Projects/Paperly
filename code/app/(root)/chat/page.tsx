@@ -483,7 +483,7 @@ function Page() {
     <div className="bg-gradient-to-b from-neutral-950 to-neutral-800 min-h-screen transition-all duration-500">
       <div className="mx-4 py-6 text-4xl">
         <Link href="/">
-          <ColourfulText text="QuestGen" />
+          <ColourfulText text="Paperly" />
         </Link>
       </div>
 

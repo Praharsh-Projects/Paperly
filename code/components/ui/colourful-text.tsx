@@ -3,18 +3,15 @@ import React from "react";
 import { motion } from "motion/react";
 
 export function ColourfulText({ text }: { text: string }) {
-  const colors = [
-    "rgb(131, 179, 32)",
-    "rgb(47, 195, 106)",
-    "rgb(42, 169, 210)",
-    "rgb(4, 112, 202)",
-    "rgb(107, 10, 255)",
-    "rgb(183, 0, 218)",
-    "rgb(218, 0, 171)",
-    "rgb(230, 64, 92)",
-    "rgb(232, 98, 63)",
-    "rgb(249, 129, 47)",
-  ];
+const colors = [
+  "rgb(167, 139, 250)", // violet-400
+  "rgb(139, 92, 246)",  // violet-500
+  "rgb(34, 211, 238)",  // cyan-400
+  "rgb(6, 182, 212)",   // cyan-500
+  "rgb(16, 185, 129)",  // emerald-500
+  "rgb(52, 211, 153)",  // emerald-400
+  "rgb(251, 191, 36)",  // amber-400 (small accent)
+];
 
   const [currentColors, setCurrentColors] = React.useState(colors);
   const [count, setCount] = React.useState(0);
@@ -37,15 +34,19 @@ export function ColourfulText({ text }: { text: string }) {
       }}
       animate={{
         color: currentColors[index % currentColors.length],
-        y: [0, -3, 0],
-        scale: [1, 1.01, 1],
-        filter: ["blur(0px)", `blur(5px)`, "blur(0px)"],
-        opacity: [1, 0.8, 1],
+        y: [0, -2, 0],
+        scale: [1, 1.02, 1],
+        textShadow: [
+          "0 0 0px rgba(0,0,0,0)",
+          "0 0 12px rgba(34,211,238,0.35)",
+          "0 0 0px rgba(0,0,0,0)",
+        ],
+        opacity: [1, 0.85, 1],
       }}
       transition={{
-        duration: 0.5,
-        delay: index * 0.05,
-      }}
+        duration: 0.6,
+        delay: index * 0.04,
+        }}
       className="inline-block whitespace-pre font-sans tracking-tight"
     >
       {char}

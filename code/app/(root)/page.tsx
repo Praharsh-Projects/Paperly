@@ -16,7 +16,7 @@ function page() {
         <div id="left" className=" flex-col  w-full ">
           <div className="  py-10 px-10">
             <h1 className="text-5xl font-extrabold text-white">
-              <ColourfulText text="QuestGen" />: AI-Powered Exam Question
+              <ColourfulText text="Paperly" />: AI-Powered Exam Question
               Generator
             </h1>
             <p className="mt-4 text-xl text-gray-200">
@@ -36,12 +36,7 @@ function page() {
       </div>
 
       {/* Fixed footer at the bottom */}
-      <div className="fixed  bottom-0 w-full flex items-center justify-center py-4  ">
-        <div className="flex-col w-fit items-center mx-auto justify-end">
-          <p className="text-center text-neutral-400 mb-2">Created By</p>
-          <About />
-        </div>
-      </div>
+
     </BackgroundBeamsWithCollision>
   );
 }
